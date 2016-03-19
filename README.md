@@ -69,3 +69,23 @@ If nothing broken, every data session is converted into html table with
 
 `sample_data.txt` and `sample_data.txt` contain commented test 
 data gathered by me.
+
+## Limiting i2c speed
+
+Only required for bus masters.
+
+I'm using Raspberry Pi 2 and arduino nano 328p as i2c masters.
+
+### Raspberry Pi with raspbian (or derived)
+
+- edit `/boot/config.txt`
+- add `dtparam=i2c2_baudrate=50000`
+- reboot
+- check `cat /sys/module/i2c_bcm2708/parameters/baudrate`
+
+minimal confirmed by me rate is 5000, default is 1000000.
+ 
+### Arduino using Wire library
+
+- after `Wire.begin()`d
+- `Wire.setClock(50000);`
