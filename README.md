@@ -6,7 +6,11 @@ Using nano 328p:
 - 50khz maximum speed, (100khz is common standard)
 - 100-150 bytes per single transfer session.
 
-See [sample_data.html] for output examples
+See `sample_data.html` for output examples.
+
+Output for each session looks like
+
+![Example](https://cloud.githubusercontent.com/assets/670789/13896574/795b7058-eda1-11e5-8606-5a803e8fa34d.png)
 
 ## Motivation
 Hardware oscilloscopes and signal analyzers are too expensive.
