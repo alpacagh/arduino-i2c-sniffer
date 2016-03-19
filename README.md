@@ -26,7 +26,7 @@ Hardware oscilloscopes and signal analyzers are too expensive.
 
 ### 2. analyzing
 - save serial monitor data into text file (like sample_data.txt)
-- run `python2 convertToHtml.py >sample_data.html`
+- run `python2 convertToHtml.py sample_data.txt >sample_data.html`
 - open `sample_data.html` in browser
 
 ## Description
