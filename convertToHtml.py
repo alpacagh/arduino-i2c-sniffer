@@ -7,6 +7,10 @@ Exports
     - EncoderHtml implementation
 Command-line usage:
     python2 convertToHtml.py [inputFile = stdin] >outputFile
+
+source: https://github.com/alpacagh/arduino-i2c-sniffer
+MIT license Copyright (c) 2016 alpacagm@gmail.com
+https://opensource.org/licenses/MIT
 """
 
 
