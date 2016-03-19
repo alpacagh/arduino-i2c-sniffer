@@ -1,0 +1,112 @@
+/**
+ * Software signal sniffer targeted for i2c (twi) protocol.
+ *
+ * Simpler edition without internal session buffer
+ *
+ * Speed limit
+ * Maximum confirmed sniffing speed for this edition using nano 328p is 5kbps (driven by raspberry).
+ * Faster rates give unpredictable missed measures, probably because of complex serial procedures.
+ *
+ * source: https://github.com/alpacagh/arduino-i2c-sniffer
+ * MIT license Copyright (c) 2016 alpacagm@gmail.com
+ * https://opensource.org/licenses/MIT
+ */
+
+/** configuration section. normally no other changes should be required */
+#define USE_PULLUP
+#define PIN_SCL A2
+#define PIN_SDA A3
+#define BYTE_SHIFT 'a'
+#define SERIAL_SPEED 57600
+#define SESSION_BORDER 0x7FFF // ~ 300ms
+
+/** end of configuration */
+
+uint8_t status = 3;
+uint8_t bitmask;
+volatile uint8_t *portAddr;
+uint_fast32_t counter = 0;
+bool inSession = false;
+
+#define SCAN_PINS() (*portAddr & bitmask)
+
+#ifdef BYTE_SHIFT
+#define STATUS_TO_PRESENTATION(status) (status + BYTE_SHIFT)
+#else
+#define STATUS_TO_PRESENTATION(status) (status)
+#endif
+
+void setup() {
+    Serial.begin(SERIAL_SPEED);
+    Serial.println("!! Configuring..");
+    // Pre-calculate port numbers and bit offsets
+    uint8_t scl_port = digitalPinToPort(PIN_SCL);
+    uint8_t sda_port = digitalPinToPort(PIN_SDA);
+    if (scl_port != sda_port) {
+        Serial.println("!! Error: SDL and SDA pins must be within same port!");
+    }
+    portAddr = portInputRegister(scl_port);
+    uint8_t scl_bit = digitalPinToBitMask(PIN_SCL);
+    uint8_t sda_bit = digitalPinToBitMask(PIN_SDA);
+    bitmask = scl_bit|sda_bit;
+    TIMSK0 = 0;
+
+    // Print configuration
+    Serial.print("!! Data mask is ");
+    Serial.print(bitmask);
+    Serial.print(" where SCL is ");
+    Serial.print(scl_bit);
+    Serial.print(" and SDA is ");
+    Serial.print(sda_bit);
+#ifdef BYTE_SHIFT
+    Serial.println();
+    Serial.print("!! Transfer is shifted by character '");
+    Serial.print(BYTE_SHIFT);
+    Serial.print('\'');
+#endif
+    Serial.println();
+    Serial.print(">>");
+    Serial.print(scl_bit);
+    Serial.print(":");
+    Serial.print(sda_bit);
+#ifdef BYTE_SHIFT
+    Serial.print(":");
+    Serial.print(BYTE_SHIFT);
+#endif
+    Serial.println();
+
+#ifdef USE_PULLUP
+    pinMode(PIN_SDA, INPUT_PULLUP);
+    pinMode(PIN_SCL, INPUT_PULLUP);
+#else
+    pinMode(PIN_SDA, INPUT);
+    pinMode(PIN_SCL, INPUT);
+#endif
+
+    Serial.println("!! Processing signals.");
+    hasUpdate();
+    Serial.write(STATUS_TO_PRESENTATION(status));
+}
+
+/**
+ * Check if status has been updated
+ */
+inline bool hasUpdate() {
+    register uint8_t tmp = SCAN_PINS();
+    if (status == tmp) return false;
+    status = tmp;
+    return true;
+}
+
+void loop() {
+    if (hasUpdate()) {
+        counter = 0;
+        inSession = true;
+        Serial.write(STATUS_TO_PRESENTATION(status));
+    }
+    if (inSession) if (++counter == SESSION_BORDER) {
+        inSession = false;
+        Serial.println();
+        Serial.write(STATUS_TO_PRESENTATION(status));
+    }
+}

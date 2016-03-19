@@ -1,0 +1,28 @@
+table {
+    border-collapse: collapse;
+    margin-bottom: 2em;
+    overflow: auto;
+}
+
+.interp {
+    text-align: center;
+}
+.interp:not(.interp_none) {
+    background: lightgoldenrodyellow;
+}
+
+.kind_high, .kind_low, .kind_rising, .kind_falling {
+    box-sizing: border-box;
+    width: 2em;
+    min-width: 2em;
+    height: 2em;
+    border: 1px dashed #bbb;
+    background-size: 2em;
+    background-repeat: no-repeat;
+}
+
+/* source backgrounds located in svg directory */
+.kind_high { background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiA8Zz4NCiAgPHBvbHlsaW5lIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHBvaW50cz0iMCwyMCAxMDAsMjAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIi8+DQogPC9nPg0KPC9zdmc+); }
+.kind_low { background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiA8Zz4NCiAgPHBvbHlsaW5lIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHBvaW50cz0iMCw4MCAxMDAsODAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIi8+DQogPC9nPg0KPC9zdmc+); }
+.kind_rising { background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiA8Zz4NCiAgPHBvbHlsaW5lIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHBvaW50cz0iMCw4MCAyNSw4MCA2MCwyMCAxMDAsMjAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIi8+DQogPC9nPg0KPC9zdmc+); }
+.kind_falling { background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiA8Zz4NCiAgPHBvbHlsaW5lIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHBvaW50cz0iMCwyMCAyNSwyMCA2MCw4MCAxMDAsODAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlPSIjMDAwIiBmaWxsPSJub25lIi8+DQogPC9nPg0KPC9zdmc+); }

@@ -1,0 +1,24 @@
+!! Configuring..
+!! Data mask is 12 where SCL is 4 and SDA is 8
+!! Transfer is shifted by character 'a'
+>>4:8:a
+
+!! All demo samples taken with raspi command <code>i2cget -y 1 0x8</code>
+
+!! Without response
+!! Reference 5khz
+meaeaeaeimaeaeaeimimiaem
+meaeaeaeimaeaeaeimimaem
+!! 50khz
+meaeaeaeaimaeaeaeimimaem
+meaeaeaeimaeaeaeimimaem
+meaeaeaeimaeaeaeaimimaem
+meaeaeaeimaeaeaeimimaem
+
+!! With response (arduino slave_sender demo)
+!! 5khz with response
+meaeaeaeimaeaeaeimaeaeimimaeimaeaeaeimaem
+!! 50khz with response
+meaeaeaeimaeaeaeimaeaeimimaeimaeaeaeimaem
+!! 100 khz with response (skipped data)
+meaeaiaeaiaeimeiaeiaem
